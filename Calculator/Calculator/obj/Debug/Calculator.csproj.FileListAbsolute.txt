@@ -1,0 +1,9 @@
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\bin\Debug\Calculator.exe.config
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\bin\Debug\Calculator.exe
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\bin\Debug\Calculator.pdb
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\obj\Debug\Calculator.csprojAssemblyReference.cache
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\obj\Debug\Calculator.FormMain.resources
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\obj\Debug\Calculator.Properties.Resources.resources
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\obj\Debug\Calculator.csproj.GenerateResource.cache
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\obj\Debug\Calculator.exe
+C:\Users\39334\Desktop\Calcolatrice\calculator-Federico-Mameli\Calculator\Calculator\obj\Debug\Calculator.pdb

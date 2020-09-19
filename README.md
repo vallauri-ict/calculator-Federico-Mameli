@@ -1,0 +1,1 @@
+18/09/20: creato dinamicamente i bottoni e la lable risultato.
