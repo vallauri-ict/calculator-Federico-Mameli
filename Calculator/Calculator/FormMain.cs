@@ -35,7 +35,7 @@ namespace Calculator
         //private char[,] buttons =new char[6,4]; 
         private ButtonStruct[,] buttons =
         {
-            {new ButtonStruct('%',false), new ButtonStruct(' ',false), new ButtonStruct('C',false), new ButtonStruct(' ',false)},
+            {new ButtonStruct('%',false), new ButtonStruct(' ',false), new ButtonStruct('C',false), new ButtonStruct('<',false)},
             {new ButtonStruct(' ',false), new ButtonStruct(' ',false), new ButtonStruct(' ',false), new ButtonStruct('/',false)},
             {new ButtonStruct('7',true,true), new ButtonStruct('8',true,true), new ButtonStruct('9',true,true), new ButtonStruct('X',false)},
             {new ButtonStruct('4',true,true), new ButtonStruct('5',true,true), new ButtonStruct('6',true,true), new ButtonStruct('-',false)},
@@ -57,15 +57,26 @@ namespace Calculator
         private void GenerateResultBox()
         {
             resultBox = new RichTextBox();
-            resultBox.Font = new Font("Segoe UI", 22);
+            
             resultBox.Width = this.Width - 17;
             resultBox.Height = 50;
+            resultBox.Font = new Font("Segoe UI", 22);
             resultBox.SelectionAlignment = HorizontalAlignment.Right;
             resultBox.Top = 75;
             resultBox.ReadOnly = true;
             resultBox.TabStop = false;
+            resultBox.TextChanged += ResultBox_TextChanged;
             resultBox.Text = "0";
             this.Controls.Add(resultBox);
+        }
+
+        private void ResultBox_TextChanged(object sender, EventArgs e)
+        {
+            int newSize = 22 + (15 - resultBox.Text.Length);
+            if (newSize>10&& newSize<23)
+                resultBox.Font = new Font("Segoe UI", newSize);
+
+
         }
 
         private void GenerateButtons(ButtonStruct[,] buttons)
@@ -103,17 +114,42 @@ namespace Calculator
                     resultBox.Text = "";
                 resultBox.Text += btn.Text;
             }
-            else if(bs.isDecimalSeparator)
+            else if (bs.isDecimalSeparator)
             {
                 if (!resultBox.Text.Contains(bs.Content))
                     resultBox.Text += bs.Content;
             }
-            else if(bs.isPlusMinusSign)
+            else if (bs.isPlusMinusSign)
             {
-                if (!resultBox.Text.Contains("-"))
-                    resultBox.Text = $"-{resultBox.Text}";
-                else
-                    resultBox.Text = resultBox.Text.Replace("-", "");
+                if (resultBox.Text != ("0"))
+                {
+                    if (!resultBox.Text.Contains("-"))
+                        resultBox.Text = $"-{resultBox.Text}";
+                    else
+                        resultBox.Text = resultBox.Text.Replace("-", "");
+                }
+            }
+            else
+            {
+                switch (bs.Content)
+                {
+                    case 'C':
+                        resultBox.Text = "0";
+                        break;
+                    case '<':
+                        //resultBox.Text = resultBox.Text.Substring(0, resultBox.Text.Length - 1);
+                        if (resultBox.Text.Length > 1)
+                        {
+                            resultBox.Text = resultBox.Text.Remove(resultBox.Text.Length - 1);
+                            //if (resultBox.Text.Substring(resultBox.Text.Length - 1) == ",") //rimuovere la virgola se non rimangono numeri a destra di ella
+                            //    resultBox.Text = resultBox.Text.Remove(resultBox.Text.Length - 1);
+                        }
+                        else
+                            resultBox.Text = "0";
+                        if(resultBox.Text == "-")
+                            resultBox.Text = "0";
+                        break;
+                }
             }
         }
     }
