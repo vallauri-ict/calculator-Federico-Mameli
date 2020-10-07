@@ -43,14 +43,15 @@ namespace Calculator
             {new ButtonStruct(' ',false), new ButtonStruct(' ',false), new ButtonStruct(' ',false), new ButtonStruct('/',false,false,false,false,true)},
             {new ButtonStruct('7',true,true), new ButtonStruct('8',true,true), new ButtonStruct('9',true,true), new ButtonStruct('X',false,false,false,false,true)},
             {new ButtonStruct('4',true,true), new ButtonStruct('5',true,true), new ButtonStruct('6',true,true), new ButtonStruct('-',false,false,false,false,true)},
-            {new ButtonStruct('1',true,true), new ButtonStruct('2',true,true), new ButtonStruct('3',true,true), new ButtonStruct('+',false,false,false,false,true,true)},
-            {new ButtonStruct('±',false,false,false,true), new ButtonStruct('0',true,true), new ButtonStruct(',',false,false,true), new ButtonStruct('=',false,false,false,false,true)},
+            {new ButtonStruct('1',true,true), new ButtonStruct('2',true,true), new ButtonStruct('3',true,true), new ButtonStruct('+',false,false,false,false,true)},
+            {new ButtonStruct('±',false,false,false,true), new ButtonStruct('0',true,true), new ButtonStruct(',',false,false,true), new ButtonStruct('=',false,false,false,false,true,true)},
         };
         private const char ASCIIZERO=' ';
         private double operand1, operand2, result;
         private char lastOperator=' ';
         private ButtonStruct lastButtonClicked;
         private RichTextBox resultBox;
+        private Font baseFont= new Font("Segoe UI", 22);
         public FormMain()
         {
             InitializeComponent();
@@ -165,9 +166,12 @@ namespace Calculator
                         break;
                 }
             }
-            //svolgimento segni e uguale -> if(segnoPrecedente) EseguiSegnoPrecendente() if(segno) AggiungiSegnoSelezionato()
-        }
-
+            lastButtonClicked = bs;
+        //}
+        //private string getFormattedNumber(double number)
+        //{
+        //    return String.Format("{0;0,0}", number);
+        //}
         private void clearAll(double numberToWrite=0)
         {
             operand1 = 0;
@@ -179,7 +183,6 @@ namespace Calculator
 
         private void manageOperators(ButtonStruct bs)
         {
-            //presenti vari problemi causati dall'implementazione dell'uguale; rivisitare.
             if (lastOperator == ASCIIZERO)
             {
                 operand1 = double.Parse(resultBox.Text);
@@ -193,8 +196,11 @@ namespace Calculator
                 }
                 else
                 {
-                    if(!lastButtonClicked.isEqualSign)
-                            operand2 = double.Parse(resultBox.Text);
+                    if (!lastButtonClicked.isEqualSign)
+                    {
+                        operand2 = double.Parse(resultBox.Text);
+                    }
+                    
                             switch (lastOperator)
                     {
                         case '-':
@@ -210,14 +216,15 @@ namespace Calculator
                             result = operand1 / operand2;
                             break;
                     }
-                    //if(!bs.isEqualSign)
-                    lastOperator = bs.Content;
+                    if (!bs.isEqualSign)
+                    {
+                        lastOperator = bs.Content;
+                        operand2 = 0;
+                    }
                     operand1 = result;
-                    operand2 = 0;
                     resultBox.Text = result.ToString();
                 }
             }
-            lastButtonClicked = bs;
         }
     }
 }
